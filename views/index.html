@@ -1,9 +1,200 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>DELI-VERY</title>
-    </head>
-    <body>
-        <h1>Hello World!!!</h1>
-    </body>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script type="text/javascript" src="js/menu.js">
+  <script src="js/js_script.js" defer></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="js/vue_script.js" defer></script>
+
+
+
+  <title>BurgersOnline</title>
+  <meta charset="utf-8"/>
+
+</head>
+
+<body>
+  <header>
+        <img src = "img/header.jpg"/>
+        <h1>Welcome to BurgersOnline</h1>
+  </header>
+  <main id = "burgare">
+    <section class="burgers">
+      <h2> Select burger </h2>
+        <div class="burgerWrapper">
+          <div v-for="b in menu">
+            {{b.name}}
+
+          <img :src="b.img"><br>
+            <li v-if="b.lactose"> Contains <span>lactose</span></li>
+            <li v-if="b.gluten"> Contains <span>gluten</span></li></li>
+            <input v-model="checked" type="checkbox" v-bind:value="b.name"> I want this item <br>
+
+          </div>
+        </div>
+
+    <!--<div class="burgerWrapper"
+      <div>
+        <h3>Halloumi burger</h3>
+        <img src = "img/hallo.jpg" style="width:200px;height:200px;">
+        <ol>
+          <li>Contains <span id="laktos">lactose </span></li>
+          <li>750 kcal</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Bean burger</h3>
+        <img src = "img/bean.jpg" style="width:200px;height:200px;">
+        <ol>
+          <li>Vegan</li>
+          <li>600 kcal</li>
+        </ol>
+      </div
+      <div>
+        <h3>Cheese burger</h3>
+        <img src = "img/cheese.jpg" style="width:200px;height:200px;">
+        <ol>
+          <li>
+            Contains <span id="laktos">lactose </span>
+          </li>
+          <li>
+            800 kcal
+          </li>
+        </ol>
+      </div>-->
+
+  <!--  <table cellspacing = "70" align = "center">
+
+      <thead>
+        <tr>
+            <th> Halloumi burger </th>
+            <th> Bean burger </th>
+            <th> Cheese burger </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img src = "img/hallo.jpg" style="width:200px;height:200px;">
+              <ol>
+                <li>Contains <span id="laktos">lactose </span></li>
+                <li>750 kcal</li>
+              </ol>
+            </td>
+
+            <td>
+              <img src = "img/bean.jpg" style="width:200px;height:200px;">
+
+              <ol>
+                <li>Vegan</li>
+                <li>600 kcal</li>
+              </ol>
+            </td>
+            <td>
+              <img src = "img/cheese.jpg" style="width:200px;height:200px;">
+
+              <ol>
+      <li>
+        Contains <span id="laktos">lactose </span>
+      </li>
+      <li>
+        800 kcal
+      </li>
+              </ol>
+            </td>
+          </tr>
+        </section>
+      </tbody>
+    </table> -->
+</section>
+<section class = "identity" id="contact">
+      <form>
+        <h3> Consumer information </h3>
+        <p> The price of the hamburgers are 79 kr. Gluten-free breads are available. </p>
+        <h4> Delivery information </h4>
+        <p>
+          <label for="Full name">Full name</label><br>
+          <input  v-model="orderObject.fullname" type="text" id="fullname" name="fn" required="required" placeholder="full name">
+        </p>
+        <p>
+          <label for="Email">Email</label><br>
+          <input  v-model="orderObject.email" type="email" id="email" name="em" required="required" placeholder="E-mail address">
+        </p>
+      <!--  <p>
+          <label for="Street">Street</label><br>
+          <input  v-model="street" type="text" id="street" name="ln" required="required" placeholder="street address">
+        </p>
+        <p>
+          <label for="number">House number</label><br>
+          <input  v-model="number" type="number" id="housenumber" name="em" required="required" placeholder="House number">
+        </p>-->
+        <p>
+            <label for="payment opinions">payment opinions</label><br>
+            <select v-model = "orderObject.payment" id="recipient" name="rcp">
+                <option>Cash</option>
+                <option>credit card</option>
+                <option>swish</option>
+            </select>
+        </p>
+          <p>Gender:</p>
+          <div>
+            <input v-model="orderObject.gender" v-model="radio" type="radio" id="female" name="gender" value="female"
+                   checked>
+            <label for="female">female</label>
+          </div>
+
+          <div>
+            <input v-model="orderObject.gender" v-model="radio" type="radio" id="male" name="gender" value="male">
+            <label for="male">male</label>
+          </div>
+
+          <div>
+            <input v-model="orderObject.gender" v-model="radio" type="radio" id="none" name="gender" value="none-binary">
+            <label for="none-binary">non-binary</label>
+          </div>
+      </form>
+    </section>
+    <h3> Order information and details </h3>
+    <div id="info">
+      Picked burger: {{this.checked}}<br>
+      Gender: {{this.orderObject.gender}}<br>
+      Name: {{this.orderObject.fullname}}<br>
+      Email: {{this.orderObject.email}}<br>
+      Payment method: {{this.orderObject.payment}}<br>
+      <!--street: {{this.street}}{{this.number}}<br>-->
+
+
+      <div id="consumer">
+      </div>
+              <h3> Click in the map! </h3>
+              <a href="/dispatcher" target="_blank">Open dispatcher in new window</a>.
+              <div class="view-box">
+                <div id="dots" v-on:click="displayOrder">
+                    <div
+
+                      v-bind:style="{ left: Position.x + 'px', top: Position.y + 'px'}">
+                      T
+                    </div>
+                </div>
+              </div>
+
+      <div id = "orderbottom" >
+        <button v-on:click="addOrder()"><img src = "img/knapp.png"></button>
+      </div>
+
+
+</main>
+<footer>
+
+<p> &copy; BurgersOnline </p>
+<!--<p>
+  <li><button type="submit"><img src = "img/knapp.png" Send Info></li>
+  </p>-->
+
+    </footer>
+
+</body>
 </html>
